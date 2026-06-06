@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Bats</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Bats_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Bats_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Bats_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Bats_files/libs/quarto-html/popper.min.js"></script>
+<script src="Bats_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Bats_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Bats_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Bats_files/libs/quarto-html/quarto-syntax-highlighting-9c5e1a58ae97b3faeeb5cca0e0e2eaf1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Bats_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Bats_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Bats_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bats</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="exercise-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1"><strong>Exercise 1</strong></h2>
+<p><strong>Bat diversity at clay lick, forest, and gap microhabitats in Western Amazonia</strong></p>
+<p>In the Peruvian Amazon, we conducted a study on bat diversity at the Los Amigos Conservation Concession in Madre de Dios (Bravo et al.&nbsp;2008, Bravo 2009). We deployed mist nets to capture live bats in sites within three microhabitats: clay licks, forest, and gaps. We identified each bat to the species level and collected biometric data. After the data were recorded, we released the bats back into their respective microhabitats to ensure minimal consequences to the bats from their capture.</p>
+<p>In this exercise, you will investigate bat diversity across clay lick, forest, and gap microhabitats. More specifically, you will compare bat data sampled from these microhabitats using a rarefaction analysis, which estimates the number of species expected for a given number of individuals in each microhabitat. We deployed mist nets in three different sites within each of the three microhabitats in three years, but for this exercise we aggregated the data for each microhabitat and across years.</p>
+<p>To perform the analysis, you will use the <em>iNEXT</em> (<em>iNterpolation and EXTrapolation</em>) R package, as described by Hsieh et al.&nbsp;(2016). This package enables the interpolation and extrapolation of species diversity, providing a robust method for comparing bat diversity among the different microhabitats.</p>
+<p><em>iNEXT</em> estimates three measures of species diversity corresponding to Hill numbers (<sup><em>q</em></sup><em>D</em>, where <em>q</em> is referred to as the “order” of the Hill number): <sup><em>0</em></sup><em>D</em>, <sup><em>1</em></sup><em>D</em>, and <sup><em>2</em></sup><em>D</em>. For this exercise, we will use species richness, which corresponds to <sup><em>0</em></sup><em>D</em> (Hill number of order zero).</p>
+<p><strong>Authors</strong></p>
+<p>Adriana Bravo &amp; Kyle E. Harms</p>
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp; For this exercise, you will use the abundances of each bat species captured at clay lick, forest, and gap microhabitats. For each species of bat, the bats captured in each microhabitat represent a sample of the population from that microhabitat.</p>
+<p>Run this line of R code to see the dataset named “bats”. Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bats<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"bats.txt"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>bats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                            Claylick Forest Gap
+Chrotopterus_auritus               0      2   0
+Glyphonycteris_daviesi             0      1   0
+Lophostoma_silvicolum              1      3   3
+Micronycteris_brachyotis           1      0   0
+Micronycteris_minuta               0      1   0
+Mimon_crenulatum                   0      0   3
+Phyloderma_stenops                 0      1   1
+Phyllostomus_elongatus             1     15   9
+Phyllostomus_hastatus              1      3  11
+Tonatia_saurophylla                0      0   1
+Tonatia_sp.                        1      0   0
+Trachops_cirrhosus                 0      8   2
+Glosophaga_soricina                0      0   1
+Lonchophylla_thomasi               1      2   7
+Carollia_brevicauda                3     18  29
+Carollia_castanea                  0      2   7
+Carollia_perspicillata             7     40  26
+Carollia_spp.                      1      1   2
+Rhinophylla_pumilio                0     24  10
+Artibeus_anderseni                 6      2   1
+Artibeus_cinereus                  1      0   0
+Artibeus_concolor                  2      0   0
+Artibeus_glaucus                   9      0   3
+Artibeus_hartii                    0      1   0
+Artibeus_lituratus               208     26  21
+Artibeus_obscurus                210     40  18
+Artibeus_planirostris            318     36  11
+Chiroderma_salvini                54      0   0
+Chiroderma_trinitatum            146      2   0
+Chiroderma_villosum               64      1   0
+Mesophylla_macconnelli            10      9   2
+Platyrrhinus_brachycephalus       72      3   0
+Platyrrhinus_helleri             238      4   1
+Platyrrhinus_infuscus             58      4   3
+Platyrrhinus_spp.                  8      0   0
+Sphaeronycteris_toxophyllum       18      0   0
+Sturnira_lilium                   29      0   5
+Sturnira_tildae                    0      1   1
+Uroderma_bilobatum               265      2   3
+Uroderma_magnirostris             89      8   2
+Vampyressa_pusilla                27      0   0
+Vampyriscus_bidens                89      0   1
+Vampyrodes_caraccioli             21      0   0
+Desmodus_rotundus                  2      0   1
+Diphylla_ecaudata                  1      0   0
+Thyroptera_tricolor                0      0   1
+Myotis_megalotis                   0      0   1</code></pre>
+</div>
+</div>
+<p>This dataset shows&nbsp;the abundances for 47 bat species across three microhabitats: <em>Claylick</em>, <em>Forest</em>, and <em>Gap</em>. Each number is the abundance for a particular species in a particular microhabitat, i.e., the number of individuals of a species that was recorded from a particular microhabitat. Note that if a species was absent from a particular microhabitat, its abundance was recorded as zero.</p>
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Next, run this line of R code to generate a summary of the data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iNEXT)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">DataInfo</span>(bats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Assemblage    n S.obs     SC f1 f2 f3 f4 f5 f6 f7 f8 f9 f10
+1   Claylick 1962    33 0.9954  9  2  1  0  0  1  1  1  1   1
+2     Forest  260    28 0.9733  7  6  3  2  0  0  0  2  1   0
+3        Gap  187    30 0.9468 10  4  5  0  1  0  2  0  1   1</code></pre>
+</div>
+</div>
+<p>This summary output includes: the sample size (<em>n</em>, i.e., the total abundance or number of bats captured in a particular microhabitat); the observed species richness (<em>S.obs</em>) for that microhabitat; sample coverage estimate (<em>SC</em>, which we are not going to make use of in this exercise), representing the completeness of a sample; and the first ten frequency counts (<em>f1-f10</em>), representing the numbers of species with 1, 2, 3, up to 10 individuals in each microhabitat.</p>
+<p>Based on this information, answer the following questions:</p>
+<p>a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Which of the three microhabitats has the largest sample size (i.e., total abundance)? Explain.</p>
+<p>b)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What is the observed species richness at clay lick, forest, and gap microhabitats, respectively?</p>
+<p>c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Based on the observed species richness values, can you conclude that clay licks are more diverse than forest and gap microhabitats? Explain.</p>
+<p>d)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What proportion of species in each microhabitat is represented by one individual? By two? Explain.</p>
+<p>e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Are rare species (i.e., species represented by only one or two individuals) common in the bat assemblages of the study area? Explain.</p>
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Next, you are ready to run the R code for the rarefaction analysis!</p>
+<p>This analysis estimates the expected number of species (i.e., species richness) for a given number of individuals in each microhabitat. Using the observed species’ abundances (i.e., bats captured in the field within each microhabitat), <em>iNEXT</em> estimates species richness expected for any given total number of bats of all species captured, with the associated 95% confidence intervals. As default, <em>iNEXT</em> uses the Hill number of order zero (<em>q</em>=0, or <sup><em>0</em></sup><em>D</em>) that measures species richness.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rarebats<span class="ot">&lt;-</span><span class="fu">iNEXT</span>(bats, <span class="at">datatype =</span> <span class="st">"abundance"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rarebats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Compare 3 assemblages with Hill number order q = 0.
+$class: iNEXT
+
+$DataInfo: basic data information
+  Assemblage    n S.obs     SC f1 f2 f3 f4 f5 f6 f7 f8 f9 f10
+1   Claylick 1962    33 0.9954  9  2  1  0  0  1  1  1  1   1
+2     Forest  260    28 0.9733  7  6  3  2  0  0  0  2  1   0
+3        Gap  187    30 0.9468 10  4  5  0  1  0  2  0  1   1
+
+$iNextEst: diversity estimates with rarefied and extrapolated samples.
+$size_based (LCL and UCL are obtained for fixed size.)
+
+    Assemblage    m        Method Order.q       qD   qD.LCL   qD.UCL         SC
+1     Claylick    1   Rarefaction       0  1.00000  1.00000  1.00000 0.09585594
+10    Claylick  981   Rarefaction       0 27.84549 25.58220 30.10877 0.99380353
+20    Claylick 1962      Observed       0 33.00000 28.93072 37.06928 0.99541388
+30    Claylick 2891 Extrapolation       0 36.84235 31.09501 42.58968 0.99628452
+40    Claylick 3924 Extrapolation       0 40.26468 32.55012 47.97924 0.99705999
+41      Forest    1   Rarefaction       0  1.00000  1.00000  1.00000 0.09408969
+50      Forest  130   Rarefaction       0 22.50432 19.90548 25.10316 0.93722821
+60      Forest  260      Observed       0 28.00000 24.48855 31.51145 0.97325395
+70      Forest  383 Extrapolation       0 30.26071 25.65447 34.86695 0.98811890
+80      Forest  520 Extrapolation       0 31.33577 25.18405 37.48750 0.99518781
+81         Gap    1   Rarefaction       0  1.00000  1.00000  1.00000 0.07797136
+90         Gap   93   Rarefaction       0 23.29487 20.70468 25.88505 0.90215970
+100        Gap  187      Observed       0 30.00000 26.21934 33.78066 0.94675308
+110        Gap  276 Extrapolation       0 33.94737 28.55219 39.34256 0.96365833
+120        Gap  374 Extrapolation       0 36.86095 29.25750 44.46441 0.97613618
+        SC.LCL     SC.UCL
+1   0.09204832 0.09966356
+10  0.99151052 0.99609655
+20  0.99327320 0.99755457
+30  0.99398498 0.99858406
+40  0.99471380 0.99940618
+41  0.07984307 0.10833632
+50  0.92372579 0.95073062
+60  0.95808564 0.98842226
+70  0.97115258 1.00000000
+80  0.97916952 1.00000000
+81  0.06090242 0.09504031
+90  0.88262489 0.92169450
+100 0.92475199 0.96875418
+110 0.93699607 0.99032059
+120 0.94874486 1.00000000
+
+NOTE: The above output only shows five estimates for each assemblage; call iNEXT.object$iNextEst$size_based to view complete output.
+
+$coverage_based (LCL and UCL are obtained for fixed coverage; interval length is wider due to varying size in bootstraps.)
+
+    Assemblage         SC    m        Method Order.q       qD     qD.LCL
+1     Claylick 0.09585594    1   Rarefaction       0  1.00000  0.9823794
+10    Claylick 0.99380354  981   Rarefaction       0 27.84549 18.0621949
+20    Claylick 0.99541388 1962      Observed       0 33.00000 17.3991453
+30    Claylick 0.99628452 2891 Extrapolation       0 36.84235 18.1723493
+40    Claylick 0.99705999 3924 Extrapolation       0 40.26468 18.8261967
+41      Forest 0.09408969    1   Rarefaction       0  1.00000  0.9430536
+50      Forest 0.93722820  130   Rarefaction       0 22.50432 18.5038774
+60      Forest 0.97325395  260      Observed       0 28.00000 19.4471560
+70      Forest 0.98811890  383 Extrapolation       0 30.26071 14.9034182
+80      Forest 0.99518781  520 Extrapolation       0 31.33577 12.3433212
+81         Gap 0.07797136    1   Rarefaction       0  1.00000  0.9095943
+90         Gap 0.90215969   93   Rarefaction       0 23.29487 18.9364953
+100        Gap 0.94675308  187      Observed       0 30.00000 18.7328634
+110        Gap 0.96365833  276 Extrapolation       0 33.94737 15.9343606
+120        Gap 0.97613618  374 Extrapolation       0 36.86095 13.4852048
+       qD.UCL
+1    1.017621
+10  37.628775
+20  48.600855
+30  55.512344
+40  61.703165
+41   1.056946
+50  26.504758
+60  36.552844
+70  45.618003
+80  50.328227
+81   1.090406
+90  27.653242
+100 41.267137
+110 51.960389
+120 60.236701
+
+NOTE: The above output only shows five estimates for each assemblage; call iNEXT.object$iNextEst$coverage_based to view complete output.
+
+$AsyEst: asymptotic diversity estimates along with related statistics.
+  Assemblage         Diversity Observed Estimator       s.e.       LCL      UCL
+1   Claylick  Species richness 33.00000  53.23968 17.3832920 33.000000 87.31031
+2   Claylick Shannon diversity 13.35174  13.52826  0.3068061 12.926935 14.12959
+3   Claylick Simpson diversity 10.38241  10.43232  0.2519960  9.938419 10.92622
+4     Forest  Species richness 28.00000  32.06763  6.9596210 28.000000 45.70823
+5     Forest Shannon diversity 13.97484  14.93623  0.9411804 13.091548 16.78091
+6     Forest Simpson diversity 10.24864  10.62816  0.7187125  9.219506 12.03681
+7        Gap  Species richness 30.00000  42.43316 12.0358035 30.000000 66.02290
+8        Gap Shannon diversity 16.74859  18.89560  1.5409664 15.875357 21.91583
+9        Gap Simpson diversity 12.06244  12.82522  1.1927896 10.487397 15.16305</code></pre>
+</div>
+</div>
+<p>The output includes a summary of the data followed by a data frame named <em>$size_based</em>. This data frame contains the assemblage (or microhabitat) name, sample size (<em>m</em>), and method (Rarefaction, Observed, or Extrapolation, depending on whether <em>m</em> is less than, equal to, or greater than the observed sample size). It also reports the diversity order (<em>order.q; q</em>=0 for species richness), the corresponding diversity estimate (<em>qD</em>; species richness when <em>q</em>=0), the 95% confidence intervals (<em>qD.LCL, qD.UCL</em>), and the sample coverage estimate (<em>SC</em>) with its 95% confidence limits of sample coverage (<em>SC.LCL, SC.UCL</em>).</p>
+<p>Based on this information, answer the following questions:</p>
+<p>a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What is the species richness for a sample size of one within the clay lick, forest, and gap microhabitats, respectively?&nbsp;</p>
+<p>b)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What is the species richness, along with the 95% confidence intervals, for the sample sizes and microhabitats indicated in the table?</p>
+<table>
+<tbody>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Site
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Sample size
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Species richness
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Upper confidence interval
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Lower confidence interval
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Clay lick
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+981
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Clay lick
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+1962
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Forest
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+130
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Forest
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+260
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Gap
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+93
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Gap
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+187
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Based on the table above, could you draw any conclusions about whether one site is more diverse than another? Explain.</p>
+<p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Next, run the following R code to plot rarefaction curves for the three microhabitats based on this analysis.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggiNEXT</span>(rarebats, <span class="at">type=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+ℹ Please use tidy evaluation idioms with `aes()`.
+ℹ See also `vignette("ggplot2-in-packages")` for more information.
+ℹ The deprecated feature was likely used in the iNEXT package.
+  Please report the issue at &lt;https://github.com/AnneChao/iNEXT/issues&gt;.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Bats_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot shows estimates of species richness, with confidence intervals, as a function of sample size for each microhabitat. Each curve represents species richness estimated using rarefaction (solid line) and extrapolation (dashed line).</p>
+<p>Based on the plot, answer the following questions:</p>
+<p>a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Is the relationship between number of individuals and species richness positive?</p>
+<p>b)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Is this relationship linear?</p>
+<p>c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Is the rate of increase in species richness with the number of individuals constant?</p>
+<p>d)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Why is the rate of increase in species richness per individual higher at smaller sample sizes than at larger ones?</p>
+<p>e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In a natural community, would you expect a constant rate of increase in species richness as a function of the number of individuals? Explain.</p>
+<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Next, run the R code to compare estimated diversity among microhabitats for a standardized sample size of up to 187 individuals. This corresponds to the observed total abundance of all species of bats (i.e., total sample size) for the gaps, which is the smallest among the three microhabitats.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rarebats1 <span class="ot">&lt;-</span> <span class="fu">iNEXT</span>(bats, <span class="at">datatype =</span> <span class="st">"abundance"</span>, <span class="at">endpoint =</span> <span class="dv">187</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rarebats1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Compare 3 assemblages with Hill number order q = 0.
+$class: iNEXT
+
+$DataInfo: basic data information
+  Assemblage    n S.obs     SC f1 f2 f3 f4 f5 f6 f7 f8 f9 f10
+1   Claylick 1962    33 0.9954  9  2  1  0  0  1  1  1  1   1
+2     Forest  260    28 0.9733  7  6  3  2  0  0  0  2  1   0
+3        Gap  187    30 0.9468 10  4  5  0  1  0  2  0  1   1
+
+$iNextEst: diversity estimates with rarefied and extrapolated samples.
+$size_based (LCL and UCL are obtained for fixed size.)
+
+    Assemblage   m      Method Order.q       qD   qD.LCL   qD.UCL         SC
+1     Claylick   1 Rarefaction       0  1.00000  1.00000  1.00000 0.09585594
+10    Claylick  43 Rarefaction       0 13.46968 13.01781 13.92155 0.89664786
+20    Claylick  91 Rarefaction       0 16.75270 16.06881 17.43659 0.95348341
+30    Claylick 139 Rarefaction       0 18.54359 17.71489 19.37229 0.96971305
+40    Claylick 187 Rarefaction       0 19.80517 18.85498 20.75536 0.97710924
+41      Forest   1 Rarefaction       0  1.00000  1.00000  1.00000 0.09408969
+50      Forest  43 Rarefaction       0 14.50924 13.02947 15.98901 0.85848824
+60      Forest  91 Rarefaction       0 19.66818 17.32973 22.00663 0.91625045
+70      Forest 139 Rarefaction       0 23.05414 20.19009 25.91818 0.94095488
+80      Forest 187 Rarefaction       0 25.49010 22.21756 28.76264 0.95694997
+81         Gap   1 Rarefaction       0  1.00000  1.00000  1.00000 0.07797136
+90         Gap  43 Rarefaction       0 16.81111 15.11143 18.51080 0.82231393
+100        Gap  91 Rarefaction       0 23.09664 20.07470 26.11859 0.90045833
+110        Gap 139 Rarefaction       0 27.09202 23.11171 31.07232 0.93055937
+120        Gap 187    Observed       0 30.00000 25.18588 34.81412 0.94675308
+        SC.LCL     SC.UCL
+1   0.09157196 0.10013991
+10  0.88867817 0.90461755
+20  0.94867599 0.95829083
+30  0.96560006 0.97382604
+40  0.97322431 0.98099417
+41  0.07966193 0.10851746
+50  0.83032062 0.88665585
+60  0.89827606 0.93422484
+70  0.92554714 0.95636262
+80  0.94209898 0.97180096
+81  0.06475881 0.09118392
+90  0.78324412 0.86138373
+100 0.87270622 0.92821043
+110 0.90625369 0.95486504
+120 0.92149189 0.97201428
+
+NOTE: The above output only shows five estimates for each assemblage; call iNEXT.object$iNextEst$size_based to view complete output.
+
+$coverage_based (LCL and UCL are obtained for fixed coverage; interval length is wider due to varying size in bootstraps.)
+
+    Assemblage         SC   m      Method Order.q       qD     qD.LCL    qD.UCL
+1     Claylick 0.09585594   1 Rarefaction       0  1.00000  0.9695302  1.030470
+10    Claylick 0.89664789  43 Rarefaction       0 13.46968 12.7235177 14.215841
+20    Claylick 0.95348342  91 Rarefaction       0 16.75270 15.7300644 17.775345
+30    Claylick 0.96971305 139 Rarefaction       0 18.54359 17.2578134 19.829369
+40    Claylick 0.97710924 187 Rarefaction       0 19.80517 18.2490809 21.361259
+41      Forest 0.09408969   1 Rarefaction       0  1.00000  0.9289282  1.071072
+50      Forest 0.85848821  43 Rarefaction       0 14.50924 11.7902423 17.228231
+60      Forest 0.91625045  91 Rarefaction       0 19.66818 15.9981756 23.338183
+70      Forest 0.94095489 139 Rarefaction       0 23.05414 18.7636652 27.344612
+80      Forest 0.95694997 187 Rarefaction       0 25.49010 20.1746241 30.805578
+81         Gap 0.07797136   1 Rarefaction       0  1.00000  0.9426297  1.057370
+90         Gap 0.82231395  43 Rarefaction       0 16.81111 13.4463085 20.175921
+100        Gap 0.90045832  91 Rarefaction       0 23.09664 17.3692279 28.824059
+110        Gap 0.93055937 139 Rarefaction       0 27.09202 18.5948216 35.589212
+120        Gap 0.94675308 187    Observed       0 30.00000 17.3512358 42.648764
+
+NOTE: The above output only shows five estimates for each assemblage; call iNEXT.object$iNextEst$coverage_based to view complete output.
+
+$AsyEst: asymptotic diversity estimates along with related statistics.
+  Assemblage         Diversity Observed Estimator       s.e.       LCL      UCL
+1   Claylick  Species richness 33.00000  53.23968 22.6661687 33.000000 97.66455
+2   Claylick Shannon diversity 13.35174  13.52826  0.2896127 12.960633 14.09589
+3   Claylick Simpson diversity 10.38241  10.43232  0.2422725  9.957476 10.90717
+4     Forest  Species richness 28.00000  32.06763  9.5142084 28.000000 50.71513
+5     Forest Shannon diversity 13.97484  14.93623  0.9263308 13.120652 16.75180
+6     Forest Simpson diversity 10.24864  10.62816  0.7189483  9.219044 12.03727
+7        Gap  Species richness 30.00000  42.43316 16.2137357 30.000000 74.21149
+8        Gap Shannon diversity 16.74859  18.89560  1.4601755 16.033704 21.75749
+9        Gap Simpson diversity 12.06244  12.82522  1.0597100 10.748228 14.90221</code></pre>
+</div>
+</div>
+<p>The output includes a date frame with estimates of species richness with 95% confidence intervals for sample sizes up to 187 individuals.</p>
+<p>a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What is the species richness, along with the 95% confidence intervals, for the following numbers of individuals at the three sites?</p>
+<table>
+<tbody>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Site
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Sample size
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Species richness
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Upper confidence interval
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Lower confidence interval
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Clay lick
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+91
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Clay lick
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+187
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Forest
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+91
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Forest
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+187
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Gap
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+91
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+Gap
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+187
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+<p>
+&nbsp;
+</p>
+<p>
+</p>
+</td>
+<td>
+<p>
+</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+</p>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Run the following R code to generate a plot of the rarefaction results.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggiNEXT</span>(rarebats1, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Bats_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot shows species richness estimates, with confidence intervals, as a function of sample size up to 187 individuals. Based on the table above and this plot, answer the following questions:</p>
+<p>a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Which microhabitat has the highest estimated species richness for 187 individuals?</p>
+<p>b)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Which microhabitat(s) is/are the most diverse in terms of species richness? (Hint: use the confidence intervals to guide your decision.)</p>
+<p>c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Which microhabitat is the least diverse among the three? Do its confidence intervals overlap with those of the other microhabitats?</p>
+<p>d)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Do the estimates for 187 individuals differ from the observed species richness across the three microhabitats? (Hint: refer to the summary table of the full data set.)</p>
+<p>e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Why is it important to compare species richness across microhabitats using the same number of individuals? Explain</p>
+<p><strong>References</strong></p>
+<p>Bravo, A., K. E. Harms, R. D. Stevens, and L. H. Emmons. 2008. <em>Collpas</em>: activity hotspots for frugivorous bats (Phyllostomidae) in the Peruvian Amazon. <em>Biotropica</em> 40:203–210.</p>
+<p>Bravo, A. 2009. <em>Collpas</em> as activity hotspots for frugivorous bats (Stenodermatinae) in the Peruvian Amazon: underlying mechanisms and conservation implications. Ph.D.&nbsp;dissertation, Louisiana State University.</p>
+<p>Hsieh, T.C., K. H. Ma, and A. Chao. 2016. iNEXT: An R package for interpolation and extrapolation of species diversity (Hill numbers). <em>Methods in Ecology and Evolution</em> 7: 1451-1456.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
