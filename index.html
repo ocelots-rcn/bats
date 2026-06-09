@@ -81,25 +81,25 @@ ul.task-list li input[type="checkbox"] {
 <p>Adriana Bravo &amp; Kyle E. Harms</p>
 <p>1.&nbsp;&nbsp; For this exercise, you will use the abundances of each bat species captured at clay lick, forest, and gap microhabitats. For each species of bat, the bats captured in each microhabitat represent a sample of the population from that microhabitat.</p>
 <p>Run this line of R code to see the dataset named “bats”. Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
-<div class="cell">
+<div class="cell" title="Loading the dataset">
 <div>
 <div id="webr-1" class="exercise-cell">
 
 </div>
 <script type="webr-1-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiYmF0czwtcmVhZC50YWJsZShcImJhdHMudHh0XCIpXG5iYXRzIn0=
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsInRpdGxlIjoiTG9hZGluZyB0aGUgZGF0YXNldCJ9LCJjb2RlIjoiXG5iYXRzPC1yZWFkLnRhYmxlKFwiYmF0cy50eHRcIilcbmJhdHMifQ==
 </script>
 </div>
 </div>
 <p>This dataset shows&nbsp;the abundances for 47 bat species across three microhabitats: <em>Claylick</em>, <em>Forest</em>, and <em>Gap</em>. Each number is the abundance for a particular species in a particular microhabitat, i.e., the number of individuals of a species that was recorded from a particular microhabitat. Note that if a species was absent from a particular microhabitat, its abundance was recorded as zero.</p>
 <p>2.&nbsp;&nbsp; Next, run this line of R code to generate a summary of the data.</p>
-<div class="cell">
+<div class="cell" title="Summarizing the dataset">
 <div>
 <div id="webr-2" class="exercise-cell">
 
 </div>
 <script type="webr-2-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibGlicmFyeShpTkVYVClcbkRhdGFJbmZvKGJhdHMpIn0=
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsInRpdGxlIjoiU3VtbWFyaXppbmcgdGhlIGRhdGFzZXQifSwiY29kZSI6IlxubGlicmFyeShpTkVYVClcbkRhdGFJbmZvKGJhdHMpIn0=
 </script>
 </div>
 </div>
@@ -112,13 +112,13 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibGlicmFyeShpTkVYVClcbkRh
 <p>e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Are rare species (i.e., species represented by only one or two individuals) common in the bat assemblages of the study area? Explain.</p>
 <p>3.&nbsp;&nbsp; Next, you are ready to run the R code for the rarefaction analysis!</p>
 <p>This analysis estimates the expected number of species (i.e., species richness) for a given number of individuals in each microhabitat. Using the observed species’ abundances (i.e., bats captured in the field within each microhabitat), <em>iNEXT</em> estimates species richness expected for any given total number of bats of all species captured, with the associated 95% confidence intervals. As default, <em>iNEXT</em> uses the Hill number of order zero (<em>q</em>=0, or <sup><em>0</em></sup><em>D</em>) that measures species richness.</p>
-<div class="cell">
+<div class="cell" data-timelimit="60" title="Interactive Sandbox: Test Your Code Here">
 <div>
 <div id="webr-3" class="exercise-cell">
 
 </div>
 <script type="webr-3-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmFyZWJhdHM8LWlORVhUKGJhdHMsIGRhdGF0eXBlID0gXCJhYnVuZGFuY2VcIilcbnJhcmViYXRzIn0=
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsInRpbWVsaW1pdCI6NjAsInRpdGxlIjoiSW50ZXJhY3RpdmUgU2FuZGJveDogVGVzdCBZb3VyIENvZGUgSGVyZSJ9LCJjb2RlIjoicmFyZWJhdHM8LWlORVhUKGJhdHMsIGRhdGF0eXBlID0gXCJhYnVuZGFuY2VcIilcbnJhcmViYXRzIn0=
 </script>
 </div>
 </div>
@@ -358,13 +358,13 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1lc3NhZ2VzIjpmYWxzZSwid2FybmluZyI6
 <p>d)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Why is the rate of increase in species richness per individual higher at smaller sample sizes than at larger ones?</p>
 <p>e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In a natural community, would you expect a constant rate of increase in species richness as a function of the number of individuals? Explain.</p>
 <p>5.&nbsp;&nbsp;Next, run the R code to compare estimated diversity among microhabitats for a standardized sample size of up to 187 individuals. This corresponds to the observed total abundance of all species of bats (i.e., total sample size) for the gaps, which is the smallest among the three microhabitats.</p>
-<div class="cell">
+<div class="cell" data-timelimit="60">
 <div>
 <div id="webr-5" class="exercise-cell">
 
 </div>
 <script type="webr-5-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoicmFyZWJhdHMxIDwtIGlORVhUKGJhdHMsIGRhdGF0eXBlID0gXCJhYnVuZGFuY2VcIiwgZW5kcG9pbnQgPSAxODcpXG5yYXJlYmF0czEifQ==
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsInRpbWVsaW1pdCI6NjB9LCJjb2RlIjoicmFyZWJhdHMxIDwtIGlORVhUKGJhdHMsIGRhdGF0eXBlID0gXCJhYnVuZGFuY2VcIiwgZW5kcG9pbnQgPSAxODcpXG5yYXJlYmF0czEifQ==
 </script>
 </div>
 </div>
