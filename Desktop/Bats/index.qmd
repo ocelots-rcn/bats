@@ -32,7 +32,7 @@ Adriana Bravo & Kyle E. Harms
 
 1.   For this exercise, you will use the abundances of each bat species captured at clay lick, forest, and gap microhabitats. For each species of bat, the bats captured in each microhabitat represent a sample of the population from that microhabitat.
 
-Run this line of R code to see the dataset named “bats”. Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Run this line of R code to see the dataset named “bats”.
 
 ```{webr}
 bats<-read.table("bats.txt")
@@ -66,6 +66,8 @@ e)        Are rare species (i.e., species represented by only one or two 
 
 This analysis estimates the expected number of species (i.e., species richness) for a given number of individuals in each microhabitat. Using the observed species’ abundances (i.e., bats captured in the field within each microhabitat), *iNEXT* estimates species richness expected for any given total number of bats of all species captured, with the associated 95% confidence intervals. As default, *iNEXT* uses the Hill number of order zero (*q*=0, or ^*0*^*D*) that measures species richness.
 
+Note: This analysis may take up to 2 minutes to complete. Please be patient and avoid clicking the Run Code button more than once.
+
 ```{webr}
 #| timelimit: 300
 rarebats<-iNEXT(bats, datatype = "abundance")
@@ -81,7 +83,7 @@ a)        What is the species richness for a sample size of one within th
 b)        What is the species richness, along with the 95% confidence intervals, for the sample sizes and microhabitats indicated in the table?
 
 |  |  |  |  |  |  |  |  |  |  |  |
-|----|----|----|----|----|----|----|----|----|----|----|
+|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
 |  |  |  |  |  |  |  |  |  |  |  |
 |  | Site |  | Sample size |  | Species richness |  | Upper confidence interval |  | Lower confidence interval |  |
 |  |  |  |  |  |  |  |  |  |  |  |
@@ -99,6 +101,8 @@ b)        What is the species richness, along with the 95% confidence int
 |  |  |  |  |  |  |  |  |  |  |  |
 
 c)        Based on the table above, could you draw any conclusions about whether one site is more diverse than another? Explain.
+
+Note: The output also includes two data frames, *\$coverage_based* and *\$AsyEst*, which we will not use in this analysis.
 
 4.   Next, run the following R code to plot rarefaction curves for the three microhabitats based on this analysis.
 
@@ -124,18 +128,20 @@ e)        In a natural community, would you expect a constant rate of inc
 
 5.  Next, run the R code to compare estimated diversity among microhabitats for a standardized sample size of up to 187 individuals. This corresponds to the observed total abundance of all species of bats (i.e., total sample size) for the gaps, which is the smallest among the three microhabitats.
 
+Note: This analysis may take up to 2 minutes to complete. Please be patient and avoid clicking the Run Code button more than once.
+
 ```{webr}
 #| timelimit: 300
 rarebats1 <- iNEXT(bats, datatype = "abundance", endpoint = 187)
 rarebats1
 ```
 
-The output includes a date frame with estimates of species richness with 95% confidence intervals for sample sizes up to 187 individuals.
+The output includes a data frame named \$*size_based* with estimates of species richness with 95% confidence intervals for sample sizes up to 187 individuals.
 
 a)        What is the species richness, along with the 95% confidence intervals, for the following numbers of individuals at the three sites?
 
 |  |  |  |  |  |  |  |  |  |  |  |
-|----|----|----|----|----|----|----|----|----|----|----|
+|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
 |  |  |  |  |  |  |  |  |  |  |  |
 |  | Site |  | Sample size |  | Species richness |  | Upper confidence interval |  | Lower confidence interval |  |
 |  |  |  |  |  |  |  |  |  |  |  |
@@ -151,6 +157,8 @@ a)        What is the species richness, along with the 95% confidence int
 |  |  |  |  |  |  |  |  |  |  |  |
 |  | Gap |  | 187 |  |   |  |   |  |   |  |
 |  |  |  |  |  |  |  |  |  |  |  |
+
+Note: The output also includes two data frames, *\$coverage_based* and *\$AsyEst*, which we will not use in this analysis.
 
 6.   Run the following R code to generate a plot of the rarefaction results.
 
