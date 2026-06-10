@@ -80,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Authors</strong></p>
 <p>Adriana Bravo &amp; Kyle E. Harms</p>
 <p>1.&nbsp;&nbsp; For this exercise, you will use the abundances of each bat species captured at clay lick, forest, and gap microhabitats. For each species of bat, the bats captured in each microhabitat represent a sample of the population from that microhabitat.</p>
-<p>Run this line of R code to see the dataset named “bats”. Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<p>Run this line of R code to see the dataset named “bats”.</p>
 <div class="cell">
 <div>
 <div id="webr-1" class="exercise-cell">
@@ -112,6 +112,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoibGlicmFyeShpTkVYVClcbkRh
 <p>e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Are rare species (i.e., species represented by only one or two individuals) common in the bat assemblages of the study area? Explain.</p>
 <p>3.&nbsp;&nbsp; Next, you are ready to run the R code for the rarefaction analysis!</p>
 <p>This analysis estimates the expected number of species (i.e., species richness) for a given number of individuals in each microhabitat. Using the observed species’ abundances (i.e., bats captured in the field within each microhabitat), <em>iNEXT</em> estimates species richness expected for any given total number of bats of all species captured, with the associated 95% confidence intervals. As default, <em>iNEXT</em> uses the Hill number of order zero (<em>q</em>=0, or <sup><em>0</em></sup><em>D</em>) that measures species richness.</p>
+<p>Note: This analysis may take up to 2 minutes to complete. Please be patient and avoid clicking the Run Code button more than once.</p>
 <div class="cell" data-timelimit="300">
 <div>
 <div id="webr-3" class="exercise-cell">
@@ -339,6 +340,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsInRpbWVsaW1pdCI6MzAwfSwiY29kZSI6InJh
 </tbody>
 </table>
 <p>c)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Based on the table above, could you draw any conclusions about whether one site is more diverse than another? Explain.</p>
+<p>Note: The output also includes two data frames, <em>$coverage_based</em> and <em>$AsyEst</em>, which we will not use in this analysis.</p>
 <p>4.&nbsp;&nbsp; Next, run the following R code to plot rarefaction curves for the three microhabitats based on this analysis.</p>
 <div class="cell" data-messages="false">
 <div>
@@ -358,6 +360,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsIm1lc3NhZ2VzIjpmYWxzZSwid2FybmluZyI6
 <p>d)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Why is the rate of increase in species richness per individual higher at smaller sample sizes than at larger ones?</p>
 <p>e)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In a natural community, would you expect a constant rate of increase in species richness as a function of the number of individuals? Explain.</p>
 <p>5.&nbsp;&nbsp;Next, run the R code to compare estimated diversity among microhabitats for a standardized sample size of up to 187 individuals. This corresponds to the observed total abundance of all species of bats (i.e., total sample size) for the gaps, which is the smallest among the three microhabitats.</p>
+<p>Note: This analysis may take up to 2 minutes to complete. Please be patient and avoid clicking the Run Code button more than once.</p>
 <div class="cell" data-timelimit="300">
 <div>
 <div id="webr-5" class="exercise-cell">
@@ -368,7 +371,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsInRpbWVsaW1pdCI6MzAwfSwiY29kZSI6InJh
 </script>
 </div>
 </div>
-<p>The output includes a date frame with estimates of species richness with 95% confidence intervals for sample sizes up to 187 individuals.</p>
+<p>The output includes a data frame named $<em>size_based</em> with estimates of species richness with 95% confidence intervals for sample sizes up to 187 individuals.</p>
 <p>a)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; What is the species richness, along with the 95% confidence intervals, for the following numbers of individuals at the three sites?</p>
 <table class="caption-top table">
 <colgroup>
@@ -582,6 +585,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsInRpbWVsaW1pdCI6MzAwfSwiY29kZSI6InJh
 </tr>
 </tbody>
 </table>
+<p>Note: The output also includes two data frames, <em>$coverage_based</em> and <em>$AsyEst</em>, which we will not use in this analysis.</p>
 <p>6.&nbsp;&nbsp; Run the following R code to generate a plot of the rarefaction results.</p>
 <div class="cell">
 <div>
